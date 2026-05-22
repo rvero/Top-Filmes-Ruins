@@ -1,0 +1,70 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ movie?.title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  @if (!movie) {
+    <div class="loading">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+      <p>Carregando...</p>
+    </div>
+  }
+
+  @if (movie) {
+    <div class="backdrop-wrapper">
+      <img
+        [src]="'https://image.tmdb.org/t/p/w1280' + movie.backdrop_path"
+        [alt]="movie.title"
+        class="backdrop-img"
+      />
+      <div class="backdrop-overlay"></div>
+    </div>
+
+    <div class="detail-content">
+
+      <div class="top-section">
+        <img
+          [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+          [alt]="movie.title"
+          class="poster"
+        />
+        <div class="infos">
+          <h1 class="title">{{ movie.title }}</h1>
+          <p class="tagline">{{ movie.tagline }}</p>
+
+          <div class="badge-row">
+            <ion-badge>{{ movie.vote_average | number:'1.1-1' }} ⭐</ion-badge>
+            <ion-badge>{{ movie.vote_count | number }} votos</ion-badge>
+            <ion-badge>{{ movie.release_date | date:'yyyy' }}</ion-badge>
+          </div>
+
+          <p class="runtime">{{ movie.runtime }} min</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Sinopse</h2>
+        <p class="overview">{{ movie.overview || 'Sem sinopse disponível.' }}</p>
+      </div>
+
+      @if (movie.genres?.length) {
+        <div class="section">
+          <h2>Gêneros</h2>
+          <div class="genres">
+            @for (genre of movie.genres; track genre.id) {
+              <ion-badge>{{ genre.name }}</ion-badge>
+            }
+          </div>
+        </div>
+      }
+
+    </div>
+  }
+
+</ion-content>

@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>TOP FILMES RUINS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="home-content">
+
+  <div class="intro-banner">
+    <p>Filmes populares com as piores avaliações</p>
+  </div>
+
+  @if (isLoading) {
+    <div class="skeleton-list">
+      @for (item of [1,2,3,4,5]; track item) {
+        <ion-card class="movie-card skeleton-card">
+          <ion-skeleton-text animated style="height: 200px;"></ion-skeleton-text>
+          <ion-card-header>
+            <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text>
+          </ion-card-header>
+        </ion-card>
+      }
+    </div>
+  }
+
+  @if (hasError) {
+    <div class="error-container">
+      <p>Não foi possível carregar os filmes.</p>
+      <ion-button fill="outline" color="light" (click)="loadMovies()">Tentar novamente</ion-button>
+    </div>
+  }
+
+  @if (!isLoading && !hasError) {
+    <div class="movies-grid">
+
+      @for (movie of movies; track movie.id; let i = $index) {
+        <ion-card
+          class="movie-card"
+          [appMovieScore]="i + 1"
+          (click)="goToDetail(movie)"
+        >
+          <div class="poster-wrapper">
+            <img
+              [src]="getPosterUrl(movie.poster_path)"
+              [alt]="movie.title"
+              class="movie-poster"
+            />
+            <div class="vote-chip">
+              {{ movie.vote_average | starRating }}
+            </div>
+          </div>
+
+          <ion-card-header>
+            <ion-card-title class="movie-title">{{ movie.title }}</ion-card-title>
+            <ion-card-subtitle class="movie-meta">
+              {{ movie.release_date | date:'yyyy' }} · {{ movie.vote_count | number }} votos
+            </ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p class="movie-overview">
+              {{ movie.overview || 'Sem descrição disponível.' }}
+            </p>
+            <div class="popularity-bar">
+              <div
+                class="popularity-fill"
+                [style.width.%]="(movie.popularity / 5000) * 100 | number:'1.0-0'"
+              ></div>
+            </div>
+            <span class="details-link">Ver detalhes</span>
+          </ion-card-content>
+        </ion-card>
+      }
+    </div>
+
+    <ion-infinite-scroll (ionInfinite)="loadMovies($any($event))">
+      <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  }
+
+</ion-content>

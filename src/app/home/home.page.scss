@@ -1,0 +1,182 @@
+ion-toolbar {
+  --background: #111;
+  --color: #fff;
+  --border-color: #222;
+
+  ion-title {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+}
+
+.home-content {
+  --background: #111;
+}
+
+.intro-banner {
+  padding: 16px;
+  border-bottom: 1px solid #6261a2;
+
+  p {
+    color: #6261a2;
+    font-size: 0.8rem;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+.movies-grid {
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+}
+
+.movie-card {
+  --background: #181818;
+  border-radius: 4px;
+  overflow: visible;
+  cursor: pointer;
+  border: 1px solid #222;
+  margin: 0;
+  transition: border-color 0.2s;
+  position: relative;
+
+  &:active {
+    opacity: 0.85;
+  }
+}
+
+.poster-wrapper {
+  position: relative;
+  width: 100%;
+  height: 210px;
+  overflow: hidden;
+  background: #0d0d0d;
+  border-radius: 4px 4px 0 0;
+
+  .movie-poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  &:hover .movie-poster {
+    transform: scale(1.03);
+  }
+}
+
+:host ::ng-deep .rank-badge,
+.rank-badge {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  color: #555;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 1px solid #333;
+  border-radius: 50%;
+  z-index: 100;
+
+  &.rank-top {
+    background: #1e1a00;
+    color: #c9a84c;
+    border-color: #c9a84c;
+  }
+}
+
+.vote-chip {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.9);
+  color: #6261a2;
+  padding: 3px 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border: 1px solid #6261a2;
+}
+
+.movie-title {
+  color: #eee;
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: normal;
+  line-height: 1.4;
+}
+
+.movie-meta {
+  color: #555;
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+
+.movie-overview {
+  color: #777;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.popularity-bar {
+  height: 2px;
+  background: #2a2a2a;
+  margin-bottom: 12px;
+
+  .popularity-fill {
+    height: 100%;
+    max-width: 100%;
+    background: #6261a2;
+    transition: width 0.6s ease;
+  }
+}
+
+.details-link {
+  color: #6261a2;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+
+  &:hover {
+    color: #8887c4;
+  }
+}
+
+.skeleton-list {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 24px;
+  text-align: center;
+  gap: 16px;
+
+  p {
+    color: #555;
+    font-size: 0.85rem;
+    margin: 0;
+  }
+}
